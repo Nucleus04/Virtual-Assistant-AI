@@ -1,5 +1,10 @@
 from groq import Groq
+import json
 
+
+with open('config.json') as f:
+    config = json.load(f)
+    
 class GroqAPI :
     def __init__(self):
         self._conversation = [
@@ -14,7 +19,7 @@ class GroqAPI :
 
     def request(self, message):
         client = Groq(
-            api_key="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",
+             api_key=config['llm']['groq']['apikey'],
         )
         new_message = {
             "role" : "user",

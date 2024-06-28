@@ -1,23 +1,30 @@
 import socket
 import pyaudio
-import groq_api
+from llm import groq_api
+import json
 # Connect to server
-server_address = ('localhost', 12343)
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(server_address)
+with open('config.json') as f:
+        config = json.load(f)
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server_address = ('localhost', 10000)
-print(f"Connecting to producer at {server_address}")
-sock.connect(server_address)
-# Initialize PyAudio for audio playback
+piper_socket_address = ('localhost', int(config["tts"]["piper"]["port"]))
+piper_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+print("Connecting to stt", piper_socket_address)
+piper_socket.connect(piper_socket_address)
+
+coqui_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_address = ('localhost', int(config["stt"]["coqui"]["port"]))
+print(f"Connecting to tts at {server_address}")
+coqui_socket.connect(server_address)
+
+
 pa = pyaudio.PyAudio()
 stream = pa.open(format=pyaudio.paInt16, channels=1, rate=22050, output=True)
+
 
 try:
     groq = groq_api.GroqAPI()
     while True:
-        data = sock.recv(1024)
+        data = coqui_socket.recv(1024)
         if data:
             # print(f"User: {data.decode()}")
             # message = input("Enter text to synthesize (or 'exit' to quit): ")
@@ -26,11 +33,11 @@ try:
             response = groq.request(data.decode())
             print("Ai", response)
 
-            client_socket.sendall(response.encode('utf-8'))
+            piper_socket.sendall(response.encode('utf-8'))
 
             while True:
                 try:
-                    chunk = client_socket.recv(1024)
+                    chunk = piper_socket.recv(1024)
                     stream.write(chunk)
                     if len(chunk) < 1024:
                         break
@@ -41,15 +48,13 @@ try:
                 break
 
             print("Finished playing audio.")
-    
-    print("Exiting the program.")
 
 except Exception as e:
     print(f"Error occurred: {e}")
 
 finally:
     # Close the connection and clean up
-    client_socket.close()
+    piper_socket.close()
     stream.stop_stream()
     stream.close()
     pa.terminate()

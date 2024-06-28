@@ -3,9 +3,12 @@ import json
 import custom_piper_lib
 import onnxruntime
 
+
+with open('../../config.json') as f:
+    config = json.load(f) 
 # Server configuration
 HOST = 'localhost'  # Server IP address or 'localhost'
-PORT = 12343       # Port to listen on
+PORT = int(config["tts"]["piper"]["port"])       # Port to listen on
 
 def start_server():
     onnx_model_path = 'en_US-ryan-high.onnx'

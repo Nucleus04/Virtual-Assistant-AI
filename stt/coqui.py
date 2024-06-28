@@ -9,6 +9,7 @@ import webrtcvad
 from halo import Halo
 from scipy import signal
 import socket
+import json
 
 logging.basicConfig(level=20)
 
@@ -23,11 +24,11 @@ class Audio(object):
 
     def __init__(self, callback=None, device=None, input_rate=RATE_PROCESS, file=None):
         def proxy_callback(in_data, frame_count, time_info, status):
-            #pylint: disable=unused-argument
             if self.chunk is not None:
                 in_data = self.wf.readframes(self.chunk)
             callback(in_data)
             return (None, pyaudio.paContinue)
+        
         if callback is None: callback = lambda in_data: self.buffer_queue.put(in_data)
         self.buffer_queue = queue.Queue()
         self.device = device
@@ -174,9 +175,11 @@ def main(ARGS):
 
     # Start audio with VAD
 
-    
+    with open('../config.json') as f:
+        config = json.load(f)    
+
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_address = ('localhost', 10000)
+    server_address = ('localhost', int(config["stt"]["coqui"]["port"]))
     sock.bind(server_address)
     sock.listen(1)
     
