@@ -1,0 +1,4 @@
+myenv/
+*.tflite
+*scorer
+__pycache__/
