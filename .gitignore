@@ -2,3 +2,6 @@ myenv/
 *.tflite
 *scorer
 __pycache__/
+*:Zone.Identifier
+*.onnx
+*.oonx.json
