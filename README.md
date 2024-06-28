@@ -5,7 +5,7 @@
 1. Create a virtual environment using Conda (recommended) or Python's venv module.
 2. Install dependencies by running `pip install -r requirements.txt`.
 3. Open a new terminal and navigate to the `stt` directory.
-4. Run `python coqui.py -m "your model" -s "your scorer - optional"` to start the speech-to-text module. You can download the model and scorer from Coqui AI's GitHub releases.
+4. Run `python coqui.py -m "your model" -s "your scorer - optional"` to start the speech-to-text module. You can download the model and scorer from Coqui AI's GitHub releases https://github.com/coqui-ai/STT-models/releases.
 5. Leave the speech-to-text module running and waiting for a connection.
 
 
@@ -14,11 +14,11 @@
 1. Create a Python virtual environment.
 2. Install dependencies by running `pip install -r requirements.txt`.
 3. Navigate to the `tts` directory.
-4. Download the desired model (.onnx) and config (`onnx.json`) from Rhasspy's Piper `VOICES.md`.
+4. Download the desired model (.onnx) and config (`onnx.json`) from Rhasspy's Piper `VOICES.md` https://github.com/rhasspy/piper/blob/master/VOICES.md .
 5. Run `python3 server.py` to start the text-to-speech module.
 
 
-**Note:** If you encounter issues with `lib.phonemize` or files in `/lib`, download the `libpiper_phonemize-amd64.tar` file from Rhasspy's Piper Phonemize releases, extract it, and replace the `lib` folder in your `tts` directory.
+**Note:** If you encounter issues with `lib.phonemize` or files in `/lib`, download the `libpiper_phonemize-amd64.tar` file from Rhasspy's Piper Phonemize releases https://github.com/rhasspy/piper-phonemize/releases/tag/v1.0.0, extract it, and replace the `lib` folder in your `tts` directory.
 
 
 ## Running the Main Module
