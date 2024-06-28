@@ -14,7 +14,7 @@
 1. Create a Python virtual environment.
 2. Install dependencies by running `pip install -r requirements.txt`.
 3. Navigate to the `tts` directory.
-4. Download the desired model (.onnx) and config (`onnx.json`) from Rhasspy's Piper `VOICES.md` https://github.com/rhasspy/piper/blob/master/VOICES.md .
+4. Download the desired model (.onnx) and config (`onnx.json`) from Rhasspy's Piper `VOICES.md` https://github.com/rhasspy/piper/blob/master/VOICES.md and place it on tts/ directory.
 5. Run `python3 server.py` to start the text-to-speech module.
 
 
