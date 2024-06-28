@@ -11,7 +11,7 @@ HOST = 'localhost'  # Server IP address or 'localhost'
 PORT = int(config["tts"]["piper"]["port"])       # Port to listen on
 
 def start_server():
-    onnx_model_path = 'en_US-ryan-high.onnx'
+    onnx_model_path = config["tts"]["piper"]["model"]
     options = onnxruntime.SessionOptions()
     options.enable_mem_reuse = False
     session = onnxruntime.InferenceSession(onnx_model_path, options)
