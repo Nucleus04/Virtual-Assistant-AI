@@ -11,7 +11,7 @@
     },
     "llm" : {
         "groq" : {
-            "apikey" : "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"
+            "apikey" : ""
         }
     }
 }
