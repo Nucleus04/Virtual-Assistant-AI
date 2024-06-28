@@ -4,5 +4,5 @@ myenv/
 __pycache__/
 *:Zone.Identifier
 *.onnx
-*.oonx.json
 *.wav
+*.onnx.json
